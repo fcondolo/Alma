@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alma Condolo - Artist Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Alma Condolo</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Alma Condolo</h1>
+            <p class="hero-subtitle">Communication visuelle et plurimédia</p>
+            <a href="#portfolio" class="cta-button">Travaux</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">A propos</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Actuellement en terminale Pro graphisme et communication Visuelle, je cherche un stage qui permettrait de développer mes compétences en PAO/DAO ainsi que mon attrait pour la communication visuelle plurimédia au service des clients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Portfolio</h2>
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="atawa">Atawa Interactive</button>
+                <button class="filter-btn" data-filter="rochers">Les Rochers de Palmer</button>
+                <button class="filter-btn" data-filter="mairie">Mairie de Cenon</button>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="atawa">
+                    <a href="atawa-interactive.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/atawa-title.jpg" alt="Atawa Interactive - Projet Digital" class="portfolio-img">
+                            <div class="portfolio-overlay">
+                                <h3>Atawa Interactive</h3>
+                                <p>Projet Digital, 2025</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item" data-category="rochers">
+                    <a href="rochers-palmer.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/rochers-palmer.png" alt="Les Rochers de Palmer - Communication Visuelle" class="portfolio-img">
+                            <div class="portfolio-overlay">
+                                                            <h3>Les Rochers de Palmer</h3>
+                            <p>Communication Visuelle, 2024</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item" data-category="mairie">
+                    <a href="cenon-mairie.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/cenon-mairie.png" alt="Mairie de Cenon - Design Institutionnel" class="portfolio-img">
+                            <div class="portfolio-overlay">
+                                <h3>Mairie de Cenon</h3>
+                                <p>Design Institutionnel, 2023</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>almacondolo71@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>06.16.58.72.54</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Rochers de Palmer - Alma Condolo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .project-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+        
+        .project-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .project-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .project-content {
+            padding: 80px 0;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-bottom: 4rem;
+        }
+        
+        .project-image {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .project-details h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .project-details p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-info {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+        
+        .project-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .info-value {
+            color: #666;
+        }
+        
+        .project-description {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .project-description h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .project-description p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Project Sections */
+        .project-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+
+        .project-section h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .project-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        /* Affiches Grid */
+        .affiches-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .affiche-item {
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .affiche-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .affiche-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Ticket Carousel */
+        .ticket-carousel {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .carousel-container {
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+
+        .ticket-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .carousel-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .dot.active {
+            background: #e74c3c;
+        }
+        
+        @media (max-width: 768px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .project-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .project-details h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Alma Condolo</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#portfolio" class="nav-link">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <a href="index.html#portfolio" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Retour au Portfolio
+            </a>
+            <h1>Les Rochers de Palmer</h1>
+            <p>Communication Visuelle & Design Événementiel</p>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <section class="project-content">
+        <div class="container">
+            <div class="project-grid">
+                <div class="project-image">
+                    <img src="images/rochers-palmer.png" alt="Les Rochers de Palmer - Communication Visuelle">
+                </div>
+                <div class="project-details">
+                    <h2>Projet de Communication Visuelle</h2>
+                    <p>Ce projet pour Les Rochers de Palmer représente une approche complète de la communication visuelle dans le domaine de la musique et des événements culturels. L'objectif était de créer une identité visuelle cohérente et moderne qui reflète l'esprit innovant de cette salle de concert emblématique.</p>
+                    
+
+                </div>
+            </div>
+
+            <!-- Project 1: Réalisation d'affiches -->
+            <div class="project-section">
+                <h3>Réalisation d'affiches</h3>
+                <p>Le premier projet était la réalisation d'une affiche, placardée dans les rues de Cenon ainsi que sur le compte Instagram des Rochers de Palmer afin de promouvoir un tournoi de basket. Le second projet fut la réalisation d'une affiche pour le festival musical des Hauts de Garonne. Utilisation de Photoshop, Illustrator et In-Design</p>
+                
+                <div class="affiches-grid">
+                    <div class="affiche-item">
+                        <img src="images/palmer-basket.png" alt="Affiche Palmer Basket" class="affiche-img">
+                    </div>
+                    <div class="affiche-item">
+                        <img src="images/palmer-garonne.png" alt="Affiche Palmer Garonne" class="affiche-img">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: Réalisation de tickets d'entrée -->
+            <div class="project-section">
+                <h3>Réalisation de tickets d'entrée</h3>
+                <p>Réalisation d'une série d'images afin d'illustrer le dos des billets d'entrée pour différents concerts.</p>
+                
+                <div class="ticket-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-track">
+                            <div class="carousel-slide">
+                                <img src="images/palmer-ticket-1.png" alt="Ticket Palmer 1" class="ticket-img">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/palmer-ticket-2.png" alt="Ticket Palmer 2" class="ticket-img">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/palmer-ticket-3.png" alt="Ticket Palmer 3" class="ticket-img">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/palmer-ticket-4.png" alt="Ticket Palmer 4" class="ticket-img">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/palmer-ticket-5.png" alt="Ticket Palmer 5" class="ticket-img">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/palmer-ticket-6.png" alt="Ticket Palmer 6" class="ticket-img">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/palmer-ticket-7.png" alt="Ticket Palmer 7" class="ticket-img">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/palmer-ticket-8.png" alt="Ticket Palmer 8" class="ticket-img">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev-btn" onclick="moveCarousel(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="carousel-dots">
+                            <span class="dot active" onclick="currentSlide(1)"></span>
+                            <span class="dot" onclick="currentSlide(2)"></span>
+                            <span class="dot" onclick="currentSlide(3)"></span>
+                            <span class="dot" onclick="currentSlide(4)"></span>
+                            <span class="dot" onclick="currentSlide(5)"></span>
+                            <span class="dot" onclick="currentSlide(6)"></span>
+                            <span class="dot" onclick="currentSlide(7)"></span>
+                            <span class="dot" onclick="currentSlide(8)"></span>
+                        </div>
+                        <button class="carousel-btn next-btn" onclick="moveCarousel(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        // Carousel functionality
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.dot');
+        const track = document.querySelector('.carousel-track');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            if (index >= totalSlides) {
+                currentSlideIndex = 0;
+            } else if (index < 0) {
+                currentSlideIndex = totalSlides - 1;
+            } else {
+                currentSlideIndex = index;
+            }
+
+            const offset = -currentSlideIndex * 100;
+            track.style.transform = `translateX(${offset}%)`;
+
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlideIndex);
+            });
+        }
+
+        function moveCarousel(direction) {
+            showSlide(currentSlideIndex + direction);
+        }
+
+        function currentSlide(index) {
+            showSlide(index - 1);
+        }
+
+        // Auto-advance carousel every 5 seconds
+        setInterval(() => {
+            moveCarousel(1);
+        }, 5000);
+    </script>
+</body>
+</html>
