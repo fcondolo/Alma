@@ -23,25 +23,28 @@
         
         .project-hero p {
             font-size: 1.3rem;
+            margin-bottom: 2rem;
             opacity: 0.9;
         }
         
-        .back-link {
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-            color: white;
-            text-decoration: none;
-            font-size: 1.1rem;
-            display: flex;
+        .back-btn {
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            transition: opacity 0.3s ease;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
         
-        .back-link:hover {
-            opacity: 0.8;
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
+        
         
         .project-content {
             max-width: 1200px;
@@ -151,12 +154,7 @@
     </style>
 </head>
 <body>
-    <a href="index.html#portfolio" class="back-btn">
-        <i class="fas fa-arrow-left"></i>
-        Retour au Portfolio
-    </a>
-
-    <!-- Project Hero -->
+   <!-- Project Hero -->
     <section class="project-hero">
         <div class="container">
             <h1>Atawa Interactive</h1>
@@ -195,6 +193,16 @@
         </div>
 
     </div>
+    <footer>
+        <section class="project-hero">
+            <div class="container">
+                <a href="index.html#portfolio" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour au Portfolio
+                </a>
+            </div>
+        </section>
+    </footer>
 
     <script src="script.js"></script>
 </body>
