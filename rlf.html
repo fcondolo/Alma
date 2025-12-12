@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQS News Feed - Relief Therapeutics</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background: #f9f9f9; color: #333; }
+        h1 { text-align: center; color: #1a0dab; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .news-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .headline {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #1a0dab;
+            margin-bottom: 8px;
+        }
+        .meta {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+        .content {
+            margin-top: 15px;
+        }
+        .content a {
+            color: #1a0dab;
+            text-decoration: underline;
+        }
+        .loading, .error {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.1em;
+        }
+        .error { color: red; }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 1em;
+            background: #1a0dab;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background: #0d0d8c; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Relief Therapeutics – EQS News Feed</h1>
+        <div id="loading" class="loading">Loading news feed...</div>
+        <div id="error" class="error" style="display:none;"></div>
+        <div id="news"></div>
+    </div>
+
+    <script>
+        // Simple and safe HTML sanitizer (allows common formatting tags)
+        function sanitizeHTML(html) {
+            const allowedTags = [
+                'p', 'br', 'strong', 'b', 'em', 'i', 'u', 'ul', 'ol', 'li',
+                'a', 'h1', 'h2', 'h3', 'h4', 'table', 'tr', 'td', 'th', 'thead', 'tbody',
+                'blockquote', 'div', 'span', 'hr', 'img'
+            ];
+            const allowedAttrs = {
+                'a': ['href', 'target', 'rel'],
+                'img': ['src', 'alt', 'width', 'height']
+            };
+
+            const div = document.createElement('div');
+            div.innerHTML = html;
+
+            const walker = document.createTreeWalker(div, NodeFilter.SHOW_ELEMENT);
+            const nodesToRemove = [];
+
+            let node;
+            while (node = walker.nextNode()) {
+                // Remove disallowed tags
+                if (!allowedTags.includes(node.tagName.toLowerCase())) {
+                    nodesToRemove.push(node);
+                    continue;
+                }
+
+                // Clean attributes
+                const attrs = node.attributes;
+                for (let i = attrs.length - 1; i >= 0; i--) {
+                    const attrName = attrs[i].name.toLowerCase();
+                    const tag = node.tagName.toLowerCase();
+                    if (!allowedAttrs[tag]?.includes(attrName)) {
+                        node.removeAttribute(attrs[i].name);
+                    }
+                }
+
+                // Force safe link behavior
+                if (node.tagName.toLowerCase() === 'a') {
+                    node.target = '_blank';
+                    node.rel = 'noopener noreferrer';
+                    // Prevent javascript: links
+                    const href = node.getAttribute('href') || '';
+                    if (href.toLowerCase().startsWith('javascript:')) {
+                        node.removeAttribute('href');
+                    }
+                }
+
+                // Validate img src
+                if (node.tagName.toLowerCase() === 'img') {
+                    const src = node.getAttribute('src') || '';
+                    if (!src.startsWith('http://') && !src.startsWith('https://') && !src.startsWith('//')) {
+                        node.removeAttribute('src');
+                    }
+                }
+            }
+
+            // Remove marked nodes
+            nodesToRemove.forEach(n => {
+                if (n.parentNode) n.parentNode.removeChild(n);
+            });
+
+            return div.innerHTML;
+        }
+
+        async function loadNews() {
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const newsContainer = document.getElementById('news');
+
+            loading.style.display = 'block';
+            error.style.display = 'none';
+            newsContainer.innerHTML = '';
+
+            try {
+                let page = 1;
+                let allNews = [];
+
+                while (true) {
+                    const url = `https://ir-api.eqs.com/feeds/news/c929bec5-e6e7-4dad-93e4-84080a95eff5/xml?feed_template=news&page=${page}`;
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(text, 'text/xml');
+
+                    const parsererror = doc.querySelector('parsererror');
+                    if (parsererror) throw new Error('Invalid XML received');
+
+                    const newsItems = doc.querySelectorAll('news');
+                    if (newsItems.length === 0) break; // No more pages
+
+                    newsItems.forEach(item => {
+                        const headline = item.querySelector('headline')?.textContent.trim() || 'No title';
+                        const dateTime = item.querySelector('dateTime')?.textContent.trim() || '';
+                        const content = item.querySelector('content')?.textContent || '';
+                        const newsType = item.querySelector('newsType')?.textContent.trim() || 'News';
+
+                        allNews.push({ headline, dateTime, content, newsType });
+                    });
+
+                    page++;
+                }
+
+                // Sort newest first
+                allNews.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+
+                // Render
+                newsContainer.innerHTML = allNews.map(item => `
+                    <div class="news-item">
+                        <div class="headline">${item.headline}</div>
+                        <div class="meta">${new Date(item.dateTime).toLocaleString('de-CH')} – ${item.newsType}</div>
+                        <div class="content">${sanitizeHTML(item.content)}</div>
+                    </div>
+                `).join('');
+
+            } catch (err) {
+                console.error(err);
+                error.textContent = 'Failed to load news: ' + err.message;
+                error.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        // Auto-load on start
+        loadNews();
+
+        // Add refresh button
+        const btn = document.createElement('button');
+        btn.textContent = 'Refresh News';
+        btn.onclick = loadNews;
+        document.querySelector('.container').insertBefore(btn, document.getElementById('news'));
+    </script>
+</body>
+</html>
